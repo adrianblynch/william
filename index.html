@@ -1,70 +1,79 @@
-<h1>Hello!</h1>
+<doctype html>
+<html>
+  <head>
+    <title>Web Development 101 - HTML, JS, CSS and FNAF</title>
+    <style>
+      .nose {
+        outline: solid 1px black;
+        position: absolute;
+        top: 283px;
+        left: 180px;
+        opacity: 0.01;
+        cursor: pointer;
+        z-index: 1000;
+      }
+      .freddy-container {
+        opacity: 0;
+      }
+      .freddy-full {
+        width: 126%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello!</h1>
 
-<form>
-  What is your name?
-  <input type="text" name="name">
-  <input type="submit" value="Submit" name="submit">
-</form>
+    <form>
+      What is your name?
+      <input type="text" name="name">
+      <input type="submit" value="Submit" name="submit">
+    </form>
 
-<h2 class="message"><!-- Hello William! --></h2>
+    <h2 class="message"><!-- Hello William! --></h2>
 
-<div class="freddy-container">
-  <div class="nose">NOSE</div>
-  <img class="freddy" src="happy-freddy.png" width="400">
-</div>
+    <div class="freddy-container">
+      <div class="nose">NOSE</div>
+      <img class="freddy" src="happy-freddy.png" width="400">
+    </div>
 
-<audio class="honk" src="fnaf-honk.mp3"></audio>
-<audio class="jumpscare" src="freddy-jumpscare.mp3"></audio>
+    <audio class="honk" src="fnaf-honk.mp3"></audio>
+    <audio class="jumpscare" src="freddy-jumpscare.mp3"></audio>
+    
+    <script>
+      const submitEl = document.querySelector('[name="submit"]');
+      const nameEl = document.querySelector('[name="name"]');
+      const messageEl = document.querySelector('.message');
+      const freddyEl = document.querySelector('.freddy');
+      const freddyContainerEl = document.querySelector('.freddy-container');
+      const jumpScareFreddyUrl = "jumpscare-freddy.webp";
+      const honkAudioEl = document.querySelector('.honk');
+      const jumpscareAudioEl = document.querySelector('.jumpscare');
+      const noseEl = document.querySelector('.nose');
+    
+      submitEl.onclick = function (e) {
+        e.preventDefault();
+        messageEl.innerText = 'Hello ' + nameEl.value + '!';
+        freddyContainerEl.style.opacity = '1';
+      };
+    
+      noseEl.onclick = function (e) {
+        honkAudioEl.play();
+    
+        honkAudioEl.addEventListener('ended', function() {
+          freddyEl.src = jumpScareFreddyUrl;
+          freddyEl.classList.add("freddy-full");
+          freddyContainerEl.removeChild(noseEl);
+          jumpscareAudioEl.play();
+        });
+      };
+    </script>
+  </body>
+</html>
 
-<script>
-  const submitEl = document.querySelector('[name="submit"]');
-  const nameEl = document.querySelector('[name="name"]');
-  const messageEl = document.querySelector('.message');
-  const freddyEl = document.querySelector('.freddy');
-  const freddyContainerEl = document.querySelector('.freddy-container');
-  const jumpScareFreddyUrl = "jumpscare-freddy.webp";
-  const honkAudioEl = document.querySelector('.honk');
-  const jumpscareAudioEl = document.querySelector('.jumpscare');
-  const noseEl = document.querySelector('.nose');
 
-  submitEl.onclick = function (e) {
-    e.preventDefault();
-    messageEl.innerText = 'Hello ' + nameEl.value + '!';
-    freddyContainerEl.style.opacity = '1';
-  };
-
-  noseEl.onclick = function (e) {
-    honkAudioEl.play();
-
-    honkAudioEl.addEventListener('ended', function() {
-      freddyEl.src = jumpScareFreddyUrl;
-      freddyEl.classList.add("freddy-full");
-      freddyContainerEl.removeChild(noseEl);
-      jumpscareAudioEl.play();
-    });
-  };
-</script>
-
-<style>
-  .nose {
-    outline: solid 1px black;
-    position: absolute;
-    top: 283px;
-    left: 180px;
-    opacity: 0.01;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  .freddy-container {
-    opacity: 0;
-  }
-  .freddy-full {
-    width: 126%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    overflow: auto;
-  }
-</style>
