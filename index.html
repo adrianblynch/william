@@ -4,6 +4,22 @@
     <title>Web Development 101 - HTML, JS, CSS and FNAF</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+      body, html {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+      .golden.show {
+        position: absolute;
+        background-image: url("golden-freddy.jpg");
+        height: 100%;
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        top: 0px;
+        left: 0px;
+      }
       .nose {
         outline: solid 1px black;
         position: absolute;
@@ -30,13 +46,15 @@
   <body>
     <h1>Hello!</h1>
 
+    <div class="golden"></div>
+
     <form>
       What is your name?
       <input type="text" name="name">
       <input type="submit" value="Submit" name="submit">
     </form>
 
-    <h2 class="message"><!-- Hello William! --></h2>
+    <h2 class="message"></h2>
 
     <div class="freddy-container">
       <div class="nose">NOSE</div>
@@ -45,6 +63,7 @@
 
     <audio class="honk" src="fnaf-honk.mp3"></audio>
     <audio class="jumpscare" src="freddy-jumpscare.mp3"></audio>
+    <audio class="golden-freddy" src="golden-freddy.mp3"></audio>
 
     <script>
       const submitEl = document.querySelector('[name="submit"]');
@@ -56,11 +75,19 @@
       const honkAudioEl = document.querySelector('.honk');
       const jumpscareAudioEl = document.querySelector('.jumpscare');
       const noseEl = document.querySelector('.nose');
+      const goldenEl = document.querySelector('.golden');
+      const goldenAudioEl = document.querySelector('.golden-freddy');
     
       submitEl.onclick = function (e) {
         e.preventDefault();
-        messageEl.innerText = 'Hello ' + nameEl.value + '!';
-        freddyContainerEl.style.opacity = '1';
+
+        if (nameEl.value.toLowerCase() === "it's me" || nameEl.value.toLowerCase() === "its me") {
+          goldenEl.classList.add("show");
+          goldenAudioEl.play();
+        } else {
+          messageEl.innerText = 'Hello ' + nameEl.value + '!';
+          freddyContainerEl.style.opacity = '1';
+        }
       };
     
       noseEl.onclick = function (e) {
@@ -76,5 +103,3 @@
     </script>
   </body>
 </html>
-
-
